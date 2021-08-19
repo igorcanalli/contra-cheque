@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FuncionarioFormRequest;
 use App\Models\Funcionario;
-use Exception;
-use Illuminate\Http\Request;
+use Exception;;
 
 class FuncionarioController extends Controller
 {
@@ -14,7 +14,7 @@ class FuncionarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FuncionarioFormRequest $request)
     {
         $data = $request->only('nome', 'sobrenome', 'cpf', 'setor', 'salario_bruto', 'data_admissao', 'plano_saude', 'plano_dental', 'vale_transporte');
 
@@ -22,11 +22,11 @@ class FuncionarioController extends Controller
 
              Funcionario::create($data);
 
-             return response()->json(['code' => 200, 'message' => "Funcionario Criado com sucesso"]);
+             return response()->json(['message' => "Funcionario Criado com sucesso"],200);
 
         } catch (Exception $ex) {
 
-            return response()->json(['code' => $ex->getCode(), 'message' => $ex->getMessage()]);
+            return response()->json(["message"=>$ex->getMessage()],500);
         }
 
     }
@@ -40,7 +40,7 @@ class FuncionarioController extends Controller
     public function show($id, Funcionario $funcionario)
     {
         if(!$funcionario->exists($id)){
-            return response()->json(['code' => 404, 'message' => "Funcionario não encontrado"]);
+            return response()->json(['message' => "Funcionario não encontrado"],404);
         }
 
         $data = Funcionario::find($id)->toJson();

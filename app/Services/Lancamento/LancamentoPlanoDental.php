@@ -20,9 +20,9 @@ class LancamentoPlanoDental extends Lancamento
         $desconto = Desconto::where("descricao", "Plano Dental")->first();
 
         if ($desconto->tipo_calculo == "R$") {
-            $this->valor += $desconto->valor;
-        } elseif ($desconto->tipo_calculo == "%") {
-            $this->valor += ($salario / 100) * $desconto->valor;
+            $this->valor = $desconto->valor;
+        } else {
+            $this->valor = ($salario / 100) * $desconto->valor;
         }
     }
 }

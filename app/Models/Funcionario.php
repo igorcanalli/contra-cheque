@@ -12,4 +12,8 @@ class Funcionario extends Model
     protected $table = 'funcionario';
 
     protected $fillable = ['nome', 'sobrenome', 'cpf', 'setor', 'salario_bruto', 'data_admissao', 'plano_saude', 'plano_dental', 'vale_transporte' ];
+
+    protected $hidden = ["id" ];
+
+    const UPDATED_AT = null;
 }

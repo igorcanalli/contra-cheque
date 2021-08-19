@@ -19,10 +19,14 @@ class LancamentoValeTransporte extends Lancamento
     {
         $desconto = Desconto::where("descricao", "Vale Transporte")->first();
 
+        if($salario < $desconto->salario_bruto_minimo){
+            return $this->valor = 0;
+        }
+
         if ($desconto->tipo_calculo == "R$") {
-            $this->valor += $desconto->valor;
-        } elseif ($desconto->tipo_calculo == "%") {
-            $this->valor += ($salario / 100) * $desconto->valor;
+            $this->valor = $desconto->valor;
+        } else {
+            $this->valor = ($salario / 100) * $desconto->valor;
         }
     }
 }

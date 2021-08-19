@@ -7,7 +7,6 @@ use DateInterval;
 use DateTime;
 
 use App\Services\Lancamento\{
-    Lancamento,
     LancamentoInss,
     LancamentoImpostoRenda,
     LancamentoFgts,
@@ -18,44 +17,33 @@ use App\Services\Lancamento\{
 
 class ContraCheque
 {
-    private DateTime $mes_referencia;
+    private int $mes_referencia;
 
     private LancamentoList $lancamentoList;
+    
+    private float $salario_bruto, $salario_liquido, $total_desconto;
 
-    private float $salario_bruto, $salario_liquido,  $total_desconto;
-
-    public function setClassByFuncionario(Funcionario $f)
+    public function setClassByFuncionario(Funcionario $func)
     {
         $this->setMesReferencia();
 
-        $this->setSalarioBruto($f->salario_bruto);
+        $this->setSalarioBruto($func->salario_bruto);
 
-        $this->setLancamento(new LancamentoInss($f->salario_bruto));
-
-        $this->setLancamento(new LancamentoImpostoRenda($f->salario_bruto));
-
-        $this->setLancamento(new LancamentoFgts($f->salario_bruto));
-
-        if ($f->plano_saude) 
-            $this->setLancamento(new LancamentoPlanoSaude($f->salario_bruto));
-        
-        if ($f->plano_dental) 
-            $this->setLancamento(new LancamentoPlanoDental($f->salario_bruto));
-        
-        if ($f->vale_transporte) 
-            $this->setLancamento(new LancamentoValeTransporte($f->salario_bruto));
-        
+        $this->setLancamentoList($func);
     }
 
     public function setMesReferencia($param = null)
     {
-        if (!empty($param)) {
-            return $this->mes_referencia = $param;
+        if (empty($param)) {
+
+            $date_current = new DateTime();
+            
+            $date_current->sub(new DateInterval('P1M'));
+
+            $param = $date_current->format("m");
         }
 
-        $date_current = new DateTime();
-
-        return $this->mes_referencia = $date_current->sub(new DateInterval('P1D'));
+        $this->mes_referencia = $param;
     }
 
     public function setSalarioBruto($param)
@@ -63,9 +51,24 @@ class ContraCheque
         return $this->salario_bruto = $param;
     }
 
-    public function setLancamento(Lancamento $lancamento)
+    public function setLancamentoList(Funcionario $f)
     {
-        $this->lancamentoList->add($lancamento);
+        $this->lancamentoList = new LancamentoList();
+
+        $this->lancamentoList->add(new LancamentoInss($f->salario_bruto));
+
+        $this->lancamentoList->add(new LancamentoImpostoRenda($f->salario_bruto));
+
+        $this->lancamentoList->add(new LancamentoFgts($f->salario_bruto));
+
+        if ($f->plano_saude)
+            $this->lancamentoList->add(new LancamentoPlanoSaude($f->salario_bruto));
+
+        if ($f->plano_dental)
+            $this->lancamentoList->add(new LancamentoPlanoDental($f->salario_bruto));
+
+        if ($f->vale_transporte)
+            $this->lancamentoList->add(new LancamentoValeTransporte($f->salario_bruto));
     }
 
     public function getMesReferencia()
@@ -96,11 +99,11 @@ class ContraCheque
     public function toArray()
     {
         return [
-            "mes_referencia"   => $this->mes_referencia,
-            "lista_lancamento" => $this->lancamento->toString(),
-            "salario_bruto"    => $this->salario_bruto,
-            "total_desconto"   => $this->total_desconto,
-            "salario_liquido"  => $this->salario_liquido
+            "mes_referencia"   => $this->getMesReferencia(),
+            "lista_lancamento" => $this->lancamentoList->toArray(),
+            "salario_bruto"    => $this->getSalarioBruto(),
+            "total_desconto"   => $this->getTotalDesconto(),
+            "salario_liquido"  => $this->getSalarioLiquido()
         ];
     }
 }

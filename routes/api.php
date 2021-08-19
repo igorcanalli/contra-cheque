@@ -22,4 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('funcionario/{id}/show',  [App\Http\Controllers\FuncionarioController::class, 'show'])->name('funcionario.show'); 
 
-Route::post('funcionario/{id}/post', [App\Http\Controllers\FuncionarioController::class, 'post'])->name('funcionario.post'); 
+Route::post('funcionario/store', [App\Http\Controllers\FuncionarioController::class, 'store'])->name('funcionario.store'); 
+
+Route::get('contra-cheque/{funcionario_id}/show', [App\Http\Controllers\ContraChequeController::class, 'show'])->name('contra-cheque.show'); 

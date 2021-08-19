@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('contra-cheque/{funcionario_id}/show', [App\Http\Controllers\ContraChequeController::class, 'show'])->name('contra-cheque.show'); 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDescontoTable extends Migration
+class CreateConfiguracaoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateDescontoTable extends Migration
      */
     public function up()
     {
-        Schema::create('desconto', function (Blueprint $table) {
+        Schema::create('configuracao', function (Blueprint $table) {
             $table->id();
-            $table->string('descricao',50);
-            $table->decimal('valor',10,2);
-            $table->string('tipo_calculo',2);
-            $table->decimal('salario_bruto_minimo',10,2)->nullable();
+            $table->string("chave",50);
+            $table->string("valor",50);
         });
     }
 
@@ -29,6 +27,6 @@ class CreateDescontoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('desconto');
+        Schema::dropIfExists('configuracao');
     }
 }

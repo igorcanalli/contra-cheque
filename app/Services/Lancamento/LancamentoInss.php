@@ -17,12 +17,10 @@ class LancamentoInss extends Lancamento
 
     public function setValor(float $salario)
     {
-        $inss = Inss::all()->sortByDesc('salario_contribuicao');
-
-        foreach ($inss as $item) {
+        Inss::all()->sortByDesc('salario_contribuicao')->map(function($item) use ($salario){
             if ($salario < $item->salario_contribuicao) {
                 $this->valor = ($salario / 100) * $item->aliquota;
             }
-        }
+        });
     }
 }

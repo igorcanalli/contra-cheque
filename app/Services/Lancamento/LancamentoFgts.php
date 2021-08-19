@@ -10,7 +10,7 @@ class LancamentoFgts extends Lancamento
     {
         $this->setTipo("desconto");
 
-        $this->setDescricao("Plano de Saude");
+        $this->setDescricao("FGTS");
 
         $this->setValor($salario);
     }
@@ -20,9 +20,9 @@ class LancamentoFgts extends Lancamento
         $desconto = Desconto::where("descricao", "FGTS")->first();
 
         if ($desconto->tipo_calculo == "R$") {
-            $this->salario += $desconto->valor;
-        } elseif ($desconto->tipo_calculo == "%") {
-            $this->salario += ($this->salario_bruto / 100) * $desconto->valor;
+            $this->valor = $desconto->valor;
+        } else {
+            $this->valor = ($salario / 100) * $desconto->valor;
         }
     }
 }

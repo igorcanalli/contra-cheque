@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $table['imposto_renda'] = [
-            ['base_calculo' => 0,        'aliquota' => null ,  'parcela_irpf' => null],
+            ['base_calculo' => 0,        'aliquota' => null,  'parcela_irpf' => null],
             ['base_calculo' => 1903.98,  'aliquota' =>  7.5,   'parcela_irpf' => 142.8],
             ['base_calculo' => 2826.66,  'aliquota' => 15,     'parcela_irpf' => 354.80],
             ['base_calculo' => 3751.06,  'aliquota' => 22.5,   'parcela_irpf' => 636.13],
@@ -34,16 +34,16 @@ class DatabaseSeeder extends Seeder
         ];
 
         $table['desconto'] = [
-            ['descricao' => 'Plano de Saude',   'valor' => 10 , "tipo_calculo" => "R$"],
-            ['descricao' => 'Plano Dental',     'valor' => 5 ,  "tipo_calculo" => "R$"],
-            ['descricao' => 'Vale Transporte',  'valor' => 6 ,  "tipo_calculo" => "%"],
-            ['descricao' => 'FGTS',             'valor' => 8 ,  "tipo_calculo" => "%"],
+            ['descricao' => 'Plano de Saude',   'valor' => 10, "tipo_calculo" => "R$", "salario_bruto_minimo" => null],
+            ['descricao' => 'Plano Dental',     'valor' => 5,  "tipo_calculo" => "R$", "salario_bruto_minimo" => null],
+            ['descricao' => 'Vale Transporte',  'valor' => 6,  "tipo_calculo" => "%",  "salario_bruto_minimo" => 1500],
+            ['descricao' => 'FGTS',             'valor' => 8,  "tipo_calculo" => "%",  "salario_bruto_minimo" => null],
         ];
 
-         DB::table('inss')->insert($table['inss']);
+        DB::table('inss')->insert($table['inss']);
 
-         DB::table('imposto_renda')->insert($table['imposto_renda']);
+        DB::table('imposto_renda')->insert($table['imposto_renda']);
 
-         DB::table('desconto')->insert($table['desconto']);
+        DB::table('desconto')->insert($table['desconto']);
     }
 }

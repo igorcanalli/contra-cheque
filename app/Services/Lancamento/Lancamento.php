@@ -4,36 +4,39 @@ namespace App\Services\Lancamento;
 
 abstract class Lancamento
 {
-    public string $tipo; 
+    public string $tipo;
 
-    public float $valor; 
-    
+    public float $valor;
+
     public string $descricao;
 
-        public function getTipo(){
+    public function getTipo()
+    {
         return $this->tipo;
     }
 
-    public function getDescricao(){
+    public function getDescricao()
+    {
         return $this->descricao;
     }
 
-    public function getValor(){
+    public function getValor()
+    {
         return $this->valor;
     }
 
-    public function setTipo(string $tipo) 
+    public function setTipo(string $tipo)
     {
         $this->tipo = $tipo;
     }
-    
+
     public function setDescricao(string $descricao)
     {
         $this->descricao = $descricao;
     }
 
-    public function setValor(float $salario)
+    public function setValor(float $valor)
     {
-        $this->descricao = $descricao;
+        $this->valor = $valor;
     }
 }

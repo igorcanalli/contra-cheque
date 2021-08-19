@@ -36,4 +36,12 @@ class LancamentoList
         }
         return $valor;
     }
+
+    public function toArray(){
+        $lancamentos = [];
+        foreach ($this->lancamentos as $lancamento) {
+            $lancamentos[] = ["tipo" => $lancamento->getTipo(), "valor" => $lancamento->getValor(), "descricao"=> $lancamento->getDescricao()]; 
+        }
+        return $lancamentos;
+    }
 }
