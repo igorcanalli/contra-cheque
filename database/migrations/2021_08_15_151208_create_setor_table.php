@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateConfiguracaoTable extends Migration
+class CreateSetorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateConfiguracaoTable extends Migration
      */
     public function up()
     {
-        Schema::create('configuracao', function (Blueprint $table) {
+        Schema::create('setor', function (Blueprint $table) {
             $table->id();
-            $table->string("chave",50);
-            $table->string("valor",50);
+            $table->string("sigla",10);
+            $table->string("descricao",50);
+            $table->timestamp("created_at");
         });
     }
 
@@ -27,6 +28,6 @@ class CreateConfiguracaoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('configuracao');
+        Schema::dropIfExists('setor');
     }
 }

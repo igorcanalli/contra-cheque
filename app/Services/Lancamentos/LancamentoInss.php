@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Services\Lancamento;
+namespace App\Services\Lancamentos;
 
 use App\Models\Inss;
+use App\Services\Lancamento;
 
 class LancamentoInss extends Lancamento
 { 
     function __construct(float $salario)
     {
-        $this->setTipo("desconto");
+        $this->setTipo(self::TIPO_DESCONTO);
 
         $this->setDescricao("INSS");
 
@@ -19,7 +20,7 @@ class LancamentoInss extends Lancamento
     {
         Inss::all()->sortByDesc('salario_contribuicao')->map(function($item) use ($salario){
             if ($salario < $item->salario_contribuicao) {
-                $this->valor = ($salario / 100) * $item->aliquota;
+                parent::setValor(($salario / 100) * $item->aliquota);
             }
         });
     }

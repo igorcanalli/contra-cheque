@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Services\Lancamento;
+namespace App\Services;
 
-abstract class Lancamento
+abstract class Lancamento implements LancamentoInterface
 {
-    public string $tipo;
+    const TIPO_REMUNERACAO = "remuneracao";
 
-    public float $valor;
+    const TIPO_DESCONTO = "desconto";
 
-    public string $descricao;
+    private string $tipo, $descricao;
+
+    private float $valor;
 
     public function getTipo()
     {
@@ -37,6 +39,15 @@ abstract class Lancamento
 
     public function setValor(float $valor)
     {
-        $this->valor = $valor;
+        $this->valor = round($valor, 2);
+    }
+
+    public function toArray()
+    {
+        return [
+            "tipo"      => $this->getTipo(),
+            "descricao" => $this->getDescricao(),
+            "valor"     => $this->getValor(),
+        ];
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\FuncionarioController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +18,8 @@ Route::get('/', function () {
 });
 
 // Route::get('contra-cheque/{funcionario_id}/show', [App\Http\Controllers\ContraChequeController::class, 'show'])->name('contra-cheque.show'); 
+
+Route::get('funcionario/store', [FuncionarioController::class, 'store'])->name('funcionario.store');
+
+//get contracheque
+Route::get('contra-cheque/{funcionario}/show', [ContraChequeController::class, 'show'])->name('contra-cheque.show'); 
