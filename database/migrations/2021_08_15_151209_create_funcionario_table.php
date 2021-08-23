@@ -18,13 +18,16 @@ class CreateFuncionarioTable extends Migration
             $table->string('nome', 50);
             $table->string('sobrenome', 50);
             $table->string('cpf', 14);
-            $table->string('setor', 50);
             $table->decimal('salario_bruto',10, 2, $usigned =true);
             $table->date('data_admissao');
-            $table->boolean('plano_saude');
-            $table->boolean('plano_dental');
-            $table->boolean('vale_transporte');
+           // $table->boolean('plano_saude');
+            // $table->boolean('plano_dental');
+            // $table->boolean('vale_transporte');
             $table->timestamp('created_at');
+        });
+
+        Schema::table('funcionario', function (Blueprint $table) {
+            $table->foreignId('setor_id')->constrained('setor');
         });
     }
 

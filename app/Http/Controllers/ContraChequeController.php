@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Funcionario;
-use App\Services\ContraCheque;
+use App\Services\FuncionarioService;
 
 class ContraChequeController extends Controller
 {
-    public function show($funcionario_id){
+     /**
+     * Exibe a entidade ContraCheque
+     *
+     * @param  \App\Models\Funcionario  $funcionario
+     * @return \Illuminate\Http\Response em json
+     */
+    public function show(Funcionario $funcionario)
+    {
+        $service = new FuncionarioService($funcionario);
 
-        $funcionario = Funcionario::findOrFail($funcionario_id);
-
-        $contraChequeService = new ContraCheque();
-
-        $contraChequeService->setClassByFuncionario($funcionario);
-
-        return $contraChequeService->toArray();
+        return response()->json($service->getContraCheque(),200);
     }
 }
