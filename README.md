@@ -6,7 +6,7 @@ Os funcionarios precisam ser cadastrados via endpoint exposto pela api.
 
 As formulas de calculo estão persistidas no banco de dados e são flexiveis para pronta edição. 
 
-## Install via Docker Ambientum
+## Instalar no Docker
 
     git clone
 
@@ -26,13 +26,11 @@ As formulas de calculo estão persistidas no banco de dados e são flexiveis par
     DB_USERNAME=<username_name>
     DB_PASSWORD=<password>
 
-##### Run the tests
+##### Para executar os testes
 
     php artisan test
 
 # REST API
-
-The REST API to the example app is described below.
 
 ## listar funcionario
 
@@ -50,7 +48,7 @@ The REST API to the example app is described below.
     Connection: close
     Content-Type: application/json
 
-# Criar um novo funcionario
+# Criar Funcionario
 
 ## Request
 
@@ -60,21 +58,22 @@ The REST API to the example app is described below.
 
 ### Parameters
 
-    * nome => string, maximoChar = 20,
-    *sobrenome => string, maximoChar = 20,
-    *cpf => string, precisa ser um cpf valido,
-    * setor => string, precisa ser uma sigla cadastrada
-        opções: 
-            'drh' (Departamento de RH)
-            'dat' (DDepartamento de atendimento)
-            'dle' (DDepartamento de Legalização)
-            'dfi' (DDepartamento Fiscal)
-            'dco' (DDepartamento Contábil)
-    * salario_bruto => unsigned float,
-    * data_admissao => date,
-    * plano_saude => flag (0 ou 1)    
-    * plano_dental => flag (0 ou 1)   
-    * vale_transporte => flag (0 ou 1)   
+    - nome: string, maximoChar = 20,
+    - sobrenome:  string, maximoChar = 20,
+    - cpf: string, precisa ser um cpf valido,
+    - setor: string, precisa ser a sigla de um setor cadastrado
+    - salario_bruto => unsigned float,
+    - data_admissao => date,
+    - plano_saude => flag (0 ou 1)    
+    - plano_dental => flag (0 ou 1)   
+    - vale_transporte => flag (0 ou 1) 
+
+    setores cadastrados:
+        drh (Departamento de RH)
+        dat (DDepartamento de atendimento)
+        dle (DDepartamento de Legalização)
+        dfi (DDepartamento Fiscal)
+        dco (DDepartamento Contábil)
 
 #### Response
 
@@ -86,7 +85,7 @@ The REST API to the example app is described below.
 
    {"message":"Funcionario Criado com Sucesso"}
 
-## Request Contracheque
+## listar Contracheque
 
 `GET api/contra-cheque/{id_do_funcionario}/show`
 
