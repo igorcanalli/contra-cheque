@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Beneficio;
 use App\Models\Setor;
+use App\Rules\Cpf;
 use Illuminate\Foundation\Http\FormRequest;
 
 class FuncionarioFormRequest extends FormRequest
@@ -25,11 +27,11 @@ class FuncionarioFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome'            => "required|string|max:50",
-            'sobrenome'       => "required|string|max:50",
-            'cpf'             => "required",
+            'nome'            => "required|string|max:25",
+            'sobrenome'       => "required|string|max:25",
+            'cpf'             => ["required", new Cpf],
             'setor'           => "required|string|exists:setor,sigla",
-            'salario_bruto'   => "required|numeric",
+            'salario_bruto'   => "required|numeric|min:1",
             'data_admissao'   => "required|date",
             'plano_saude'     => "required|in:0,1",
             'plano_dental'    => "required|in:0,1",
@@ -46,12 +48,15 @@ class FuncionarioFormRequest extends FormRequest
         return $dadosFuncionario;
     }
 
-    public function getSetorId(){
-       return Setor::where("sigla", $this->setor)->first()->id;
+    public function getSetorId()
+    {
+        return Setor::where("sigla", $this->setor)->first()->id;
     }
 
     public function getBeneficioId()
     {
-        return array_values(array_filter($this->only("plano_saude", "plano_dental", "vale_transporte")));
+        $keys = array_keys(array_filter($this->only("plano_saude", "plano_dental", "vale_transporte")));
+
+        return Beneficio::whereIn("nome",$keys)->get()->pluck("id")->toArray();
     }
 }

@@ -20,9 +20,9 @@ class LancamentoImpostoRenda extends Lancamento
     {
         ImpostoRenda::all()->sortBy('base_calculo')->map(function ($item) use ($salario) {
             if ($salario > $item->base_calculo) {
-                parent::setValor(($salario / 100) * $item->aliquota);
-                if ($this->getValor() > $item->parcela_irpf) {
-                    parent::setValor($item->parcela_irpf);
+                $this->valor = ($salario / 100) * $item->aliquota;
+                if ($this->valor  > $item->parcela_irpf) {
+                    $this->valor = $item->parcela_irpf;
                 }
             }
         });

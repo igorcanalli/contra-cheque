@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $table['inss'] = [
             ['salario_contribuicao' => 1045,     'aliquota' => 7.5],
             ['salario_contribuicao' => 2089.60,  'aliquota' =>  9],
-            ['salario_contribuicao' => 30134.40, 'aliquota' => 12],
+            ['salario_contribuicao' => 3134.41, 'aliquota' => 12],
             ['salario_contribuicao' => 6101.06,  'aliquota' => 14],
         ];
 

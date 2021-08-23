@@ -30,7 +30,7 @@ class FuncionarioController extends Controller
             throw $ex;
         }
 
-        return response()->json("Funcionario Criado com Sucesso", 200);
+        return response()->json(["message"=>"Funcionario Criado com Sucesso"], 200);
     }
 
     /**

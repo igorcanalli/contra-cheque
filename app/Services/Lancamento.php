@@ -8,9 +8,9 @@ abstract class Lancamento implements LancamentoInterface
 
     const TIPO_DESCONTO = "desconto";
 
-    private string $tipo, $descricao;
+    public string $tipo, $descricao;
 
-    private float $valor;
+    public float $valor = 0;
 
     public function getTipo()
     {
