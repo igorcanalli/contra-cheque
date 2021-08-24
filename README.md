@@ -6,17 +6,9 @@ Os funcionarios precisam ser cadastrados via endpoint exposto pela api.
 
 As formulas de calculo estão persistidas no banco de dados e são flexiveis para pronta edição. 
 
-## Instalar no Docker
+## Instalar dentro container e carregar dependencias
 
-    git clone
-
-### Carregar Dependencias
-
-    php artisan deployment
-
-#### Para gerar as migrações da base de dados
-
-    php artisan migrate --seed (use "php artisan migrate:reset", caso queira reverter)
+     sudo git clone https://github.com/igorcanalli/contra-cheque . && sudo composer install --optimize-autoloader
 
 #### Renomeie o arquivo ".env.example" para ".env" e configure sua conexao com o banco de dados
     DB_CONNECTION=mysql
@@ -26,9 +18,16 @@ As formulas de calculo estão persistidas no banco de dados e são flexiveis par
     DB_USERNAME=<username_name>
     DB_PASSWORD=<password>
 
-##### Para executar os testes
+##### Para atualizando as configuraçoes em cache e gerando as migrações da base de dados
 
-    php artisan test
+     sudo php artisan config:cache && sudo php artisan key:generate && sudo php artisan config:clear && sudo php artisan config:cache && sudo php artisan migrate --seed
+
+###### Para executar os testes (dentro do container)
+
+    sudo php artisan test --testsuite=Feature --stop-on-failure
+
+# Pode ser que seja capaz aplicar as permissoes para seu usuario fora do container
+        chown -R admin storage/ && chmod 777 -R storage/
 
 # REST API
 
