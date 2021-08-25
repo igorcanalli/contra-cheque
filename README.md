@@ -6,7 +6,7 @@ Os funcionarios precisam ser cadastrados via endpoint exposto pela api.
 
 As formulas de calculo estão persistidas no banco de dados e são flexiveis para pronta edição. 
 
-## Instalar dentro container e carregar dependencias
+#### Instalar dentro container e carregar dependencias
 
      sudo git clone https://github.com/igorcanalli/contra-cheque . && sudo composer install --optimize-autoloader
 
@@ -18,7 +18,7 @@ As formulas de calculo estão persistidas no banco de dados e são flexiveis par
     DB_USERNAME=<username_name>
     DB_PASSWORD=<password>
 
-##### atualizando as configuraçoes em cache e gerando as migrações da base de dados
+##### Atualizando as configuraçoes em cache e gerando as migrações da base de dados
 
      sudo php artisan config:cache && sudo php artisan key:generate && sudo php artisan config:clear && sudo php artisan config:cache && sudo php artisan migrate --seed
 
@@ -26,7 +26,7 @@ As formulas de calculo estão persistidas no banco de dados e são flexiveis par
 
     sudo php artisan test --testsuite=Feature --stop-on-failure
 
-### Pode ser que seja capaz aplicar as permissoes para seu usuario fora do container
+##### Pode ser que seja capaz aplicar as permissoes para seu usuario fora do container
         chown -R admin storage/ && chmod 777 -R storage/
 
 # REST API
