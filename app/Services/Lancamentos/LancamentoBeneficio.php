@@ -30,11 +30,11 @@ class LancamentoBeneficio extends Lancamento
     public function setValor(float $salario_bruto)
     {
         if ($salario_bruto < $this->beneficio->salario_bruto_minimo)
-            $this->valor = 0;
+            parent::setValor(0);
         else if ($this->beneficio->tipo_calculo == "R$") {
-            $this->valor = $this->beneficio->valor;
+            parent::setValor($this->beneficio->valor);
         } else {
-            $this->valor = ($salario_bruto / 100) * $this->beneficio->valor;
+            parent::setValor(($salario_bruto / 100) * $this->beneficio->valor);
         }
     }
 }
