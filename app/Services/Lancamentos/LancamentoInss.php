@@ -20,7 +20,7 @@ class LancamentoInss extends Lancamento
     {
         Inss::all()->sortByDesc('salario_contribuicao')->map(function($item) use ($salario){
             if ($salario < $item->salario_contribuicao) {
-                $this->setValor(($salario / 100) * $item->aliquota);
+                 parent::setValor(($salario / 100) * $item->aliquota);
             }
         });
 

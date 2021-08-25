@@ -27,7 +27,7 @@ As formulas de calculo estão persistidas no banco de dados e são flexiveis par
     sudo php artisan test --testsuite=Feature --stop-on-failure
 
 ##### Pode ser que seja capaz aplicar as permissoes para seu usuario fora do container
-        chown -R admin storage/ && chmod 777 -R storage/
+        sudo chown -R admin storage/ && chmod 777 -R storage/
 
 # REST API
 
