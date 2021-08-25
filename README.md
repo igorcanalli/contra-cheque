@@ -52,7 +52,7 @@ As formulas de calculo estão persistidas no banco de dados e são flexiveis par
     X-RateLimit-Remaining: 57
     Access-Control-Allow-Origin: *
 
-{"nome":"FULANO","sobrenome":"CICLANO","cpf":"583.230.330-05","salario_bruto":"2500.00","data_admissao":"2021-08-23","created_at":"2021-08-23T14:48:39.000000Z","plano_saude":true,"plano_dental":true,"vale_transporte":true,"setor":["dat"]}
+    {"nome":"FULANO","sobrenome":"CICLANO","cpf":"583.230.330-05","salario_bruto":"2500.00","data_admissao":"2021-08-23","created_at":"2021-08-23T14:48:39.000000Z","plano_saude":true,"plano_dental":true,"vale_transporte":true,"setor":["dat"]}
 
 # Criar Funcionario
 
@@ -94,7 +94,7 @@ As formulas de calculo estão persistidas no banco de dados e são flexiveis par
     X-RateLimit-Remaining: 58
     Access-Control-Allow-Origin: *
 
-   {"message":"Funcionario Criado com Sucesso"}
+    {"message":"Funcionario Criado com Sucesso"}
 
 ## listar Contracheque
 
