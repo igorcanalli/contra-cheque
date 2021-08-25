@@ -37,15 +37,20 @@ As formulas de calculo estão persistidas no banco de dados e são flexiveis par
 
 `GET api/funcionario/{id}/show`
 
-    curl -i -H 'Accept: application/json' http://localhost/funcionario/{id}/show
+    curl -i -H 'Accept: application/json' http://localhost/api/funcionario/{id}/show
 
 #### Response
 
     HTTP/1.1 200 OK
-    Date: Mon, 23 Jul 2021 10:36:30 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
+    Server: nginx
+    Content-Type: text/html; charset=UTF-8
+    Transfer-Encoding: chunked
+    Connection: keep-alive
+    Cache-Control: no-cache, private
+    Date: Wed, 25 Aug 2021 00:12:14 GMT
+    X-RateLimit-Limit: 60
+    X-RateLimit-Remaining: 57
+    Access-Control-Allow-Origin: *
 
 # Criar Funcionario
 
@@ -53,7 +58,7 @@ As formulas de calculo estão persistidas no banco de dados e são flexiveis par
 
 `POST api/funcionario/store`
 
-    curl -i -H 'Accept: application/json' -d 'nome=FULANO&sobrenome=CICLANO&cpf=583.230.330-05&setor=dat&salario_bruto=2500&data_admissao=2021-08-23&plano_saude=1&plano_dental=1&vale_transporte=1' http://localhost:7000/thing
+    curl -i -H 'Accept: application/json' -d 'nome=FULANO&sobrenome=CICLANO&cpf=583.230.330-05&setor=dat&salario_bruto=2500&data_admissao=2021-08-23&plano_saude=1&plano_dental=1&vale_transporte=1' http://localhost/api/funcionario/store
 
 ### Parameters
 
@@ -77,10 +82,15 @@ As formulas de calculo estão persistidas no banco de dados e são flexiveis par
 #### Response
 
     HTTP/1.1 200 OK
-    Date: Mon, 23 Jul 2021 10:36:30 GMT
-    Status: 200 OK
-    Connection: close
+    Server: nginx
     Content-Type: application/json
+    Transfer-Encoding: chunked
+    Connection: keep-alive
+    Cache-Control: no-cache, private
+    Date: Wed, 25 Aug 2021 00:17:40 GMT
+    X-RateLimit-Limit: 60
+    X-RateLimit-Remaining: 58
+    Access-Control-Allow-Origin: *
 
    {"message":"Funcionario Criado com Sucesso"}
 
@@ -93,7 +103,14 @@ As formulas de calculo estão persistidas no banco de dados e são flexiveis par
 ### Response
 
     HTTP/1.1 200 OK
-    Date: Mon, 23 Jul 2021 10:36:30 GMT
-    Status: 200 OK
-    Connection: close
+    Server: nginx
     Content-Type: application/json
+    Transfer-Encoding: chunked
+    Connection: keep-alive
+    Cache-Control: no-cache, private
+    Date: Wed, 25 Aug 2021 00:15:11 GMT
+    X-RateLimit-Limit: 60
+    X-RateLimit-Remaining: 59
+    Access-Control-Allow-Origin: *
+
+** EM TODAS AS REQUISIÇÕES, É NECESSARIO PASSAR O CABEÇALHO Accept=application/json**
