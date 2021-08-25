@@ -18,7 +18,7 @@ As formulas de calculo estão persistidas no banco de dados e são flexiveis par
     DB_USERNAME=<username_name>
     DB_PASSWORD=<password>
 
-##### Para atualizando as configuraçoes em cache e gerando as migrações da base de dados
+##### atualizando as configuraçoes em cache e gerando as migrações da base de dados
 
      sudo php artisan config:cache && sudo php artisan key:generate && sudo php artisan config:clear && sudo php artisan config:cache && sudo php artisan migrate --seed
 
@@ -26,14 +26,14 @@ As formulas de calculo estão persistidas no banco de dados e são flexiveis par
 
     sudo php artisan test --testsuite=Feature --stop-on-failure
 
-# Pode ser que seja capaz aplicar as permissoes para seu usuario fora do container
+### Pode ser que seja capaz aplicar as permissoes para seu usuario fora do container
         chown -R admin storage/ && chmod 777 -R storage/
 
 # REST API
 
-## listar funcionario
+## LISTAR FUNCIONARIO
 
-### Request
+#### Request
 
 `GET api/funcionario/{id}/show`
 
@@ -54,15 +54,15 @@ As formulas de calculo estão persistidas no banco de dados e são flexiveis par
 
     {"nome":"FULANO","sobrenome":"CICLANO","cpf":"583.230.330-05","salario_bruto":"2500.00","data_admissao":"2021-08-23","created_at":"2021-08-23T14:48:39.000000Z","plano_saude":true,"plano_dental":true,"vale_transporte":true,"setor":["dat"]}
 
-# Criar Funcionario
+## Criar Funcionario
 
-## Request
+#### Request
 
 `POST api/funcionario/store`
 
     curl -i -H 'Accept: application/json' -d 'nome=FULANO&sobrenome=CICLANO&cpf=583.230.330-05&setor=dat&salario_bruto=2500&data_admissao=2021-08-23&plano_saude=1&plano_dental=1&vale_transporte=1' http://localhost/api/funcionario/store
 
-### Parameters
+#### Parameters
 
     - nome: string, maximoChar = 20,
     - sobrenome:  string, maximoChar = 20,
@@ -96,13 +96,13 @@ As formulas de calculo estão persistidas no banco de dados e são flexiveis par
 
     {"message":"Funcionario Criado com Sucesso"}
 
-## listar Contracheque
+## Listar ContraCheque
 
 `GET api/contra-cheque/{id_do_funcionario}/show`
 
     curl -i -H 'Accept: application/json' http://localhost/contra-cheque/{id_do_funcionario}/show
 
-### Response
+#### Response
 
     HTTP/1.1 200 OK
     Server: nginx
