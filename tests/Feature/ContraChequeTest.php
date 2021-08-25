@@ -32,7 +32,7 @@ class ContraChequeTest extends TestCase
 
         $this->assertIsArray($contracheque['lista_lancamento']);
 
-        $this->assertEquals(strtotime(date("m")."-1 month"), $contracheque['mes_referencia']);
+        $this->assertEquals(date("m", strtotime("-1 months")), $contracheque['mes_referencia']);
 
         $this->assertIsFloat($contracheque["salario_bruto"]);
 
