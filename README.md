@@ -1,63 +1,120 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Api de Contracheques
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este é um exemplo básico de um aplicativo Laravel fornecendo uma API REST com objetivo de expor valores calculados para descrição da folha de pagamento de funcionarios cadastrados.
 
-## About Laravel
+Os funcionarios precisam ser cadastrados via endpoint exposto pela api.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+As formulas de calculo estão persistidas no banco de dados e são flexiveis para pronta edição. 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### Instalar dentro container e carregar dependencias
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+     sudo git clone https://github.com/igorcanalli/contra-cheque . && sudo composer install --optimize-autoloader
 
-## Learning Laravel
+#### Renomeie o arquivo ".env.example" para ".env" e configure sua conexao com o banco de dados
+    DB_CONNECTION=mysql
+    DB_HOST=mysql
+    DB_PORT=3306
+    DB_DATABASE=<database_name>
+    DB_USERNAME=<username_name>
+    DB_PASSWORD=<password>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+##### Atualizando as configuraçoes em cache e gerando as migrações da base de dados
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+     sudo php artisan config:cache && sudo php artisan key:generate && sudo php artisan config:clear && sudo php artisan config:cache && sudo php artisan migrate --seed
 
-## Laravel Sponsors
+###### Para executar os testes (dentro do container)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+    sudo php artisan test --testsuite=Feature --stop-on-failure
 
-### Premium Partners
+##### Pode ser que seja capaz aplicar as permissoes para seu usuario fora do container
+        chown -R admin storage/ && chmod 777 -R storage/
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
+# REST API
 
-## Contributing
+## LISTAR FUNCIONARIO
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### Request
 
-## Code of Conduct
+`GET api/funcionario/{id}/show`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    curl -i -H 'Accept: application/json' http://localhost/api/funcionario/{id}/show
 
-## Security Vulnerabilities
+#### Response
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    HTTP/1.1 200 OK
+    Server: nginx
+    Content-Type: text/html; charset=UTF-8
+    Transfer-Encoding: chunked
+    Connection: keep-alive
+    Cache-Control: no-cache, private
+    Date: Wed, 25 Aug 2021 00:12:14 GMT
+    X-RateLimit-Limit: 60
+    X-RateLimit-Remaining: 57
+    Access-Control-Allow-Origin: *
 
-## License
+    {"nome":"FULANO","sobrenome":"CICLANO","cpf":"583.230.330-05","salario_bruto":"2500.00","data_admissao":"2021-08-23","created_at":"2021-08-23T14:48:39.000000Z","plano_saude":true,"plano_dental":true,"vale_transporte":true,"setor":["dat"]}
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Criar Funcionario
+
+#### Request
+
+`POST api/funcionario/store`
+
+    curl -i -H 'Accept: application/json' -d 'nome=FULANO&sobrenome=CICLANO&cpf=583.230.330-05&setor=dat&salario_bruto=2500&data_admissao=2021-08-23&plano_saude=1&plano_dental=1&vale_transporte=1' http://localhost/api/funcionario/store
+
+#### Parameters
+
+    - nome: string, maximoChar = 20,
+    - sobrenome:  string, maximoChar = 20,
+    - cpf: string, precisa ser um cpf valido,
+    - setor: string, precisa ser a sigla de um setor cadastrado
+    - salario_bruto => unsigned float,
+    - data_admissao => date,
+    - plano_saude => flag (0 ou 1)    
+    - plano_dental => flag (0 ou 1)   
+    - vale_transporte => flag (0 ou 1) 
+
+    setores cadastrados:
+        drh (Departamento de RH)
+        dat (DDepartamento de atendimento)
+        dle (DDepartamento de Legalização)
+        dfi (DDepartamento Fiscal)
+        dco (DDepartamento Contábil)
+
+#### Response
+
+    HTTP/1.1 200 OK
+    Server: nginx
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    Connection: keep-alive
+    Cache-Control: no-cache, private
+    Date: Wed, 25 Aug 2021 00:17:40 GMT
+    X-RateLimit-Limit: 60
+    X-RateLimit-Remaining: 58
+    Access-Control-Allow-Origin: *
+
+    {"message":"Funcionario Criado com Sucesso"}
+
+## Listar ContraCheque
+
+`GET api/contra-cheque/{id_do_funcionario}/show`
+
+    curl -i -H 'Accept: application/json' http://localhost/contra-cheque/{id_do_funcionario}/show
+
+#### Response
+
+    HTTP/1.1 200 OK
+    Server: nginx
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    Connection: keep-alive
+    Cache-Control: no-cache, private
+    Date: Wed, 25 Aug 2021 00:15:11 GMT
+    X-RateLimit-Limit: 60
+    X-RateLimit-Remaining: 59
+    Access-Control-Allow-Origin: *
+
+    {"mes_referencia":7,"lista_lancamento":[{"tipo":"remuneracao","descricao":"salario base","valor":2500},{"tipo":"desconto","descricao":"INSS","valor":300},{"tipo":"desconto","descricao":"Imposto de Renda","valor":142.8},{"tipo":"desconto","descricao":"FGTS","valor":200},{"tipo":"desconto","descricao":"Plano de Saude","valor":10},{"tipo":"desconto","descricao":"Plano Dental","valor":5},{"tipo":"desconto","descricao":"Vale Transporte","valor":150}],"salario_bruto":2500,"total_desconto":807.8,"salario_liquido":1692.2}
+
+** EM TODAS AS REQUISIÇÕES, É NECESSARIO PASSAR O CABEÇALHO Accept=application/json**

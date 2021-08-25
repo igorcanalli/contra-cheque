@@ -33,8 +33,8 @@ class DataBaseTest extends TestCase
 
     public function test_beneficio()
     {
-        $this->assertTrue(DB::table('test_beneficio')->exists());
-        $this->assertDatabaseHas('test_beneficio', [
+        $this->assertTrue(DB::table('beneficio')->exists());
+        $this->assertDatabaseHas('beneficio', [
             'nome' => 'plano_saude',
             'nome' => 'plano_dental',
             'nome' => 'vale_transporte',

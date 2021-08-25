@@ -35,8 +35,6 @@ class ApiTest extends TestCase
         } else {
             $this->getJson("api/funcionario/{$f->id}/show")->assertStatus(200);
         }
-
-        
     }
 
     public function test_contrachequeShow()

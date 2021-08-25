@@ -16,10 +16,3 @@ use App\Http\Controllers\FuncionarioController;
 Route::get('/', function () {
     return view('welcome');
 });
-
-// Route::get('contra-cheque/{funcionario_id}/show', [App\Http\Controllers\ContraChequeController::class, 'show'])->name('contra-cheque.show'); 
-
-Route::get('funcionario/store', [FuncionarioController::class, 'store'])->name('funcionario.store');
-
-//get contracheque
-Route::get('contra-cheque/{funcionario}/show', [ContraChequeController::class, 'show'])->name('contra-cheque.show'); 

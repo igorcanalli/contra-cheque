@@ -25,7 +25,7 @@ class FuncionarioFactory extends Factory
       return [
             "nome"          => $this->faker->firstName(),
             "sobrenome"     => $this->faker->lastName(),
-            "cpf"           => "123.456.789-45",
+            "cpf"           => "735.078.470-86",
             "setor_id"      => Setor::inRandomOrder()->first()->id,
             "salario_bruto" => $this->faker->randomFloat(2,400,10000),
             "data_admissao" => $this->faker->date("Y-m-d"),
