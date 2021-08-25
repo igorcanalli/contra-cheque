@@ -52,6 +52,8 @@ As formulas de calculo estão persistidas no banco de dados e são flexiveis par
     X-RateLimit-Remaining: 57
     Access-Control-Allow-Origin: *
 
+{"nome":"FULANO","sobrenome":"CICLANO","cpf":"583.230.330-05","salario_bruto":"2500.00","data_admissao":"2021-08-23","created_at":"2021-08-23T14:48:39.000000Z","plano_saude":true,"plano_dental":true,"vale_transporte":true,"setor":["dat"]}
+
 # Criar Funcionario
 
 ## Request
@@ -112,5 +114,7 @@ As formulas de calculo estão persistidas no banco de dados e são flexiveis par
     X-RateLimit-Limit: 60
     X-RateLimit-Remaining: 59
     Access-Control-Allow-Origin: *
+
+    {"mes_referencia":7,"lista_lancamento":[{"tipo":"remuneracao","descricao":"salario base","valor":2500},{"tipo":"desconto","descricao":"INSS","valor":300},{"tipo":"desconto","descricao":"Imposto de Renda","valor":142.8},{"tipo":"desconto","descricao":"FGTS","valor":200},{"tipo":"desconto","descricao":"Plano de Saude","valor":10},{"tipo":"desconto","descricao":"Plano Dental","valor":5},{"tipo":"desconto","descricao":"Vale Transporte","valor":150}],"salario_bruto":2500,"total_desconto":807.8,"salario_liquido":1692.2}
 
 ** EM TODAS AS REQUISIÇÕES, É NECESSARIO PASSAR O CABEÇALHO Accept=application/json**
